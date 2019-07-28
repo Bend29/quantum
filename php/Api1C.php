@@ -8,7 +8,7 @@ class Api1C
     {
         //ssh -R 9001:10.30.20.155:80 s01.runz.org
         $easy = new \quantum\curl\Easy([
-            'url' => "http://127.0.0.1:9001/InfoBase3/hs/UploadHello/Upload",
+            'url' => "http://127.0.0.1:9001/InfoBase3/hs/Upload/UploadHello",
             'returnTransfer' => true,
             'post' => true,
             'postFields' => json_encode($data),
