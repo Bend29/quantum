@@ -32,6 +32,7 @@ class ApiAi
                 'weight' => $elem[0],
                 'id' => $elem[1],
                 'text' => $elem[2],
+                'clip' => false,
             ];
         }
 
