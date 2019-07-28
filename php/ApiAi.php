@@ -35,6 +35,14 @@ class ApiAi
             ];
         }
 
+        usort($normal_data, function ($a, $b) {
+            if ($a['weight'] == $b['weight']) {
+                return 0;
+            }
+
+            return ($a['weight'] < $b['weight']) ? 1 : -1;
+        });
+
         return $normal_data;
     }
 }

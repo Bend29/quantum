@@ -23,5 +23,10 @@ class Call extends Base
         }
 
         $res = $api_1c->upload($data);
+
+        $path = '/home/runz.org/quantum';
+        $f = fopen("$path/.local/speech.log", 'a');
+        fwrite($f, json_encode($data) . "\n");
+        fclose($f);
     }
 }
