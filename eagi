@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+async function monitor() {
+
+    const speech = require('@google-cloud/speech');
+    const fs = require('fs');
+
+    //const fileName = '/home/runz.org/quantum/.local/audio/test.raw';
+    const fileName = '/dev/fd/3';
+
+    const log = fs.createWriteStream('/home/runz.org/quantum/.local/speech.log', {
+        'flags': 'a',
+        'encoding': null,
+        'mode': 0777,
+    });
+
+    process.stdin.on('data', (chunk) => {
+        log.write(`stdin: ${chunk}\n`);
+    });
+
+    fs.createReadStream(fileName).pipe(new speech.SpeechClient({
+            "keyFile": '/home/runz.org/quantum/.local/speech-to-text.json',
+        })
+        .streamingRecognize({
+            config: {
+                encoding: 'LINEAR16',
+                sampleRateHertz: 8000,
+                languageCode: 'ru-RU',
+            },
+            interimResults: false,
+        })
+        .on('error', console.error)
+        .on('data', (data) => {
+            if (!data.results[0] || !data.results[0].alternatives[0]) {
+                throw new Error('Reached transcription time limit');
+            }
+
+            let transcript = data.results[0].alternatives[0].transcript;
+
+            log.write(`Transcription: ${transcript}\n`);
+        })
+    );
+
+    //console.log(`EXEC Dial SIP/100\n`);
+}
+
+monitor().catch(console.error);

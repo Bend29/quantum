@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php declare(strict_types = 1);
+require __DIR__ . '/vendor/autoload.php';
+use quantum\{
+    cli\Area as Handler,
+    cli\Request,
+    Resource
+};
+(new Handler(new Resource(__DIR__)))->handle(new Request($argv));

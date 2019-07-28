@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "quantum\\": "php"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": "./cli update",
+        "post-update-cmd": "./cli update"
+    }
+}
