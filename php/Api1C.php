@@ -17,14 +17,13 @@ class Api1C
             ],
         ]);
 
-        return $easy();
+        $response = $easy();
 
-        /*
         $path = '/home/runz.org/quantum';
         $f = fopen("$path/.local/speech.log", 'a');
         fwrite($f, print_r($data, true));
         fclose($f);
-        return 'Ok';
-        */
+
+        return $response;
     }
 }
